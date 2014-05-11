@@ -11,6 +11,8 @@
 
 using namespace std;
 
+
+MULTIPLATFORM_OSAPI_BEGIN_NAMESPACE
 Actor::Actor(string name, int priority)
 			:m_pActorImpl(NULL)
 {
@@ -27,3 +29,4 @@ bool Actor::Start(void)
 {
    return m_pActorImpl->Start();
 }
+MULTIPLATFORM_OSAPI_END_NAMESPACE

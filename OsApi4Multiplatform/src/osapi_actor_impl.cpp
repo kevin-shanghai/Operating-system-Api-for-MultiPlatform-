@@ -9,6 +9,7 @@
 #include "osapi_actor_impl.h"
 #include <string.h>
 using namespace std;
+MULTIPLATFORM_OSAPI_BEGIN_NAMESPACE
 
 static void* ThreadFunction(void* ptr)
 {
@@ -51,3 +52,4 @@ bool ActorImpl::Run(void)
 	}
 	m_pActor->Run();
 }
+MULTIPLATFORM_OSAPI_END_NAMESPACE

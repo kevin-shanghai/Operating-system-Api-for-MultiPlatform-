@@ -1,8 +1,9 @@
 ####################################################
 #Author:kevinfu1985@gmail.com
 #File:Makefile
-#Description:This Makefile was used to generate the dynamic library for
-#this multiplatrom os api and the Unit test for this library
+#Description:This Makefile was used to generate the \
+#dynamic library forthis multiplatrom os api and the\
+#Unit test for this library
 #Date:2014-05-10
 ####################################################
 INCLUDE_DIR = ./include
@@ -21,7 +22,7 @@ TARGET_NAME = libMultiPlatformOsApi.so
 TARGET = $(OUTPUT_DIR)/$(TARGET_NAME)
 BIN_TARGET = OSAPI_Test
 $(BIN_TARGET):main.cpp $(TARGET)
-	g++ main.cpp -I./include -L./ -lMultiPlatformOsApi -lpthread -o $(BIN_TARGET) 
+	g++ main.cpp -I./user_include -L./lib -lMultiPlatformOsApi -lpthread -o $(BIN_TARGET) 
 
 
 
@@ -32,12 +33,13 @@ $(TARGET):$(OBJ)
 	@echo $(SRC)
 	@echo $(OBJ)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ) 
+	cp $(TARGET) /usr/lib
 
 
-$(OBJECT_DIR)/%.o:
+$(OBJECT_DIR)/%.o:$(SOURCES_DIR)/%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY:clean
 
 clean:
-	@rm -rf *.o
+	@rm -rf *.o $(BIN_TARGET)

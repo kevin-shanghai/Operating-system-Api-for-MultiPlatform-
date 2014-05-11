@@ -11,6 +11,7 @@
 #include "osapi_actor.h"
 using namespace std;
 
+MULTIPLATFORM_OSAPI_BEGIN_NAMESPACE
 class ActorImpl
 {
 public:
@@ -28,5 +29,5 @@ private:
     pthread_t m_ThreadId;
 #endif
 };
-
+MULTIPLATFORM_OSAPI_END_NAMESPACE
 #endif

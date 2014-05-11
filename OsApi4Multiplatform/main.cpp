@@ -6,32 +6,54 @@
  ************************************************************************/
 
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include "osapi_actor.h"
-//#include "osapi_actor_impl.h"
+#include "osapi_mutex.h"
 
 using namespace std;
-//using namespace MultiOsApi;
+using namespace MultiPlatform_OsApi;
+
+MULTIPLATFORM_OSAPI_BEGIN_NAMESPACE
 
 
 class MyThread:public Actor
 {
 public:
-	MyThread(char const* name):Actor(name)
+	MyThread(char const* name):Actor(name), m_pMutex(new Mutex)
 	{
 	}
 	virtual void Run()
 	{
 		while(1)
-			cout<<"In MyThread::Run()."<<endl;
+		{
+			m_pMutex->Lock();
+			MyThread::count++;
+			cout<<"MyThread::count is:"<<MyThread::count<<endl;
+			m_pMutex->UnLock();
+		}		
 	}
+
+private:
+	static int count;
+	Mutex* m_pMutex;
 
 };
 
+int MyThread::count = 0;
+
+
+MULTIPLATFORM_OSAPI_END_NAMESPACE
 int main()
 {
-    MyThread* thread = new MyThread("task");
-    thread->Run();
-    //pActor->Run();
+    MyThread* thread1 = new MyThread("task1");
+    thread1->Run();
+    MyThread* thread2 = new MyThread("task2");
+    thread2->Run();
+    MyThread* thread3 = new MyThread("task3");
+    thread3->Run();
+    MyThread* thread4 = new MyThread("task4");
+    thread4->Run();
     return 0;
 }
 
