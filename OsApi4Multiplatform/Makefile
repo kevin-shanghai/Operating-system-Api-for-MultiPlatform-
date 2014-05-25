@@ -6,7 +6,7 @@
 #Unit test for this library
 #Date:2014-05-10
 ####################################################
-INCLUDE_DIR = ./include
+INCLUDE_DIR = ./include ./user_include
 SOURCES_DIR = ./src
 OBJECT_DIR = ./obj
 OUTPUT_DIR = ./lib
@@ -22,7 +22,7 @@ TARGET_NAME = libMultiPlatformOsApi.so
 TARGET = $(OUTPUT_DIR)/$(TARGET_NAME)
 BIN_TARGET = OSAPI_Test
 $(BIN_TARGET):main.cpp $(TARGET)
-	g++ main.cpp -I./user_include -L./lib -lMultiPlatformOsApi -lpthread -o $(BIN_TARGET) 
+	g++ main.cpp -I./user_include -I./include -L./lib -lMultiPlatformOsApi -lpthread -o $(BIN_TARGET) 
 
 
 

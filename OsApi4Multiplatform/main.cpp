@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include "osapi_actor.h"
 #include "osapi_mutex.h"
+#include "scoped_lock.h"
 
 using namespace std;
 using namespace MultiPlatform_OsApi;
@@ -20,23 +21,22 @@ MULTIPLATFORM_OSAPI_BEGIN_NAMESPACE
 class MyThread:public Actor
 {
 public:
-	MyThread(char const* name):Actor(name), m_pMutex(new Mutex)
+	MyThread(char const* name):Actor(name)//, m_pMutex(new Mutex)
 	{
 	}
 	virtual void Run()
 	{
 		while(1)
 		{
-			m_pMutex->Lock();
+			MutexLockGuard LockGuard(m_Mutex);
 			MyThread::count++;
 			cout<<"MyThread::count is:"<<MyThread::count<<endl;
-			m_pMutex->UnLock();
 		}		
 	}
 
 private:
 	static int count;
-	Mutex* m_pMutex;
+	MutexLock m_Mutex;
 
 };
 
@@ -44,6 +44,7 @@ int MyThread::count = 0;
 
 
 MULTIPLATFORM_OSAPI_END_NAMESPACE
+
 int main()
 {
     MyThread* thread1 = new MyThread("task1");
