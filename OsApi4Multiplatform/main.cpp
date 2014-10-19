@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "osapi_actor.h"
 #include "osapi_mutex.h"
-#include "scoped_lock.h"
+#include "osapi_scoped_lock.h"
 
 using namespace std;
 using namespace MultiPlatform_OsApi;
